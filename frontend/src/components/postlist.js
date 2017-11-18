@@ -1,14 +1,16 @@
 import React from 'react';
+import PostLIstItem from './PostListItem';
 
 const PostList = (props) => {
   return (
-    <div>
-      <ul>
-        {props.posts.map((post) => {
-          return <li key={post.id}>{post.title}</li>;
-        })}
+    <section>
+      <h2>Posts</h2>
+      <ul className="postList">
+        <PostLIstItem />
+        <PostLIstItem />
+        <PostLIstItem />
       </ul>
-    </div>
+    </section>
   )
 }
 

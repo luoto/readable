@@ -1,94 +1,130 @@
-const initialState = {
-  posts: [{
-    id: 'post1',
-    timestamp: Date.now(),
-    title: 'First Post',
-    body: 'First Body Post',
-    author: 'Post Author 1',
-    category: 'category provided by the server',
-    voteScore: 1,
-    delete: false
-  }, {
-    id: 'post2',
-    timestamp: Date.now(),
-    title: 'Second Post',
-    body: 'Post Body',
-    author: 'Post Author 2',
-    category: 'category provided by the server',
-    voteScore: 1,
-    delete: false
-  }, {
-    id: 'post3',
-    timestamp: Date.now(),
-    title: 'Third Post',
-    body: 'Post Body',
-    author: 'Post Author 3',
-    category: 'category provided by the server',
-    voteScore: 1,
-    delete: false
-  }],
-  comments: [{
-    id: 'comment1',
-    parentId: 'post1',
-    timestamp: Date.now(),
-    body: 'First comment body',
-    author: 'comment author 1',
-    voteScore: 1,
-    delete: false,
-    parentDelete: false
-  }, {
-    id: 'comment2',
-    parentId: 'post1',
-    timestamp: Date.now(),
-    body: 'second comment body',
-    author: 'comment author 2',
-    voteScore: 1,
-    delete: false,
-    parentDelete: false
-  }, {
-    id: 'comment3',
-    parentId: 'post1',
-    timestamp: Date.now(),
-    body: 'third comment body',
-    author: 'comment author 3',
-    voteScore: 1,
-    delete: false,
-    parentDelete: false
-  }, {
-    id: 'comment4',
-    parentId: 'post1',
-    timestamp: Date.now(),
-    body: 'fourth comment body',
-    author: 'comment author 4',
-    voteScore: 1,
-    delete: false,
-    parentDelete: false
-  }, {
-    id: 'comment5',
-    parentId: 'post1',
-    timestamp: Date.now(),
-    body: 'fifth comment body',
-    author: 'comment author 5',
-    voteScore: 1,
-    delete: false,
-    parentDelete: false
-  }],
-  categories: [{
-    name: 'react',
-    path: 'react'
-  }, {
-    name: 'redux',
-    path: 'redux'
-  }, {
-    name: 'udacity',
-    path: 'udacity'
-  }],
-  categoryFilter: 'react',
-  sortByFilter: 'voteScore'
+import {combineReducers} from 'redux';
+
+// HELPERS
+const insertObj = (array, obj) => {
+  let newArray = array.slice();
+  newArray.splice(0, 0, obj);
+  return newArray;
 }
 
-const readableApp = (state = initialState, action) => {
-  return state;
+// CATEGORY REDUCER
+const categories = (state = [], action) => {
+  switch (action.type) {
+    case 'CATEGORIES_RECIEVED':
+      return action.categories;
+    default:
+      return state;
+  }
 }
+
+// CATEGORY FILTER REDUCER
+const categoryFilter = (state = 'all', action) => {
+  switch (action.type) {
+    case 'TOGGLE_CATEGORY_FILTER':
+      return action.filter;
+    default:
+      return state;
+  }
+}
+
+// SORT FILTER REDUCER
+const sortFilter = (state = 'voteScore', action) => {
+  switch (action.type) {
+    case 'TOGGLE_SORT_FILTER':
+      return action.filter;
+    default:
+      return state;
+  }
+}
+
+// POST REDUCER
+const posts = (state = [], action) => {
+  switch (action.type) {
+    case 'GET_POST':
+      return [action.post];
+    case 'POSTS_RECIEVED':
+      return action.posts;
+    case 'CREATE_POST':
+      return insertObj(state, action.post);
+    case 'DELETE_POST':
+      return state.map((post) => {
+        if (post.id === action.post.id) {
+          return { ...action.post };
+        }
+        return post;
+      });
+    case 'EDIT_POST':
+      return state.map((post) => {
+        if (post.id === action.post.id) {
+          return { ...action.post };
+        }
+        return post;
+      });
+    case 'UPVOTE_POST':
+      return state.map((post) => {
+        if (post.id === action.post.id) {
+          return { ...action.post};
+        }
+        return post;
+      });
+    case 'DOWNVOTE_POST':
+      return state.map((post) => {
+        if (post.id === action.post.id) {
+          return { ...action.post};
+        }
+        return post;
+      });
+    default:
+      return state;
+  }
+}
+
+// COMMENT REDUCER
+const comments = (state = [], action) => {
+  switch (action.type) {
+    case 'COMMENTS_RECEIVED':
+      return action.comments;
+    case 'CREATE_COMMENT':
+      return insertObj(state, action.comment);
+    case 'DELETE_COMMENT':
+      return state.map((comment) => {
+        if (comment.id === action.comment.id) {
+          return { ...action.comment }
+        }
+        return comment;
+      });
+    case 'EDIT_COMMENT':
+      return state.map((comment) => {
+        if (comment.id === action.comment.id) {
+          return { ...action.comment };
+        }
+        return comment;
+      });
+    case 'UPVOTE_COMMENT':
+      return state.map((comment) => {
+        if (comment.id === action.comment.id) {
+          return { ...action.comment }
+        }
+        return comment;
+      });
+    case 'DOWNVOTE_COMMENT':
+      return state.map((comment) => {
+        if (comment.id === action.comment.id) {
+          return { ...action.comment }
+        }
+        return comment;
+      });
+    default:
+      return state;
+  }
+}
+
+const readableApp = combineReducers({
+  categories,
+  categoryFilter,
+  sortFilter,
+  posts,
+  comments,
+});
 
 export default readableApp;

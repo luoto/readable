@@ -1,15 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CategoryList = (props) => {
   return (
-    <section>
-      <h2>Categories</h2>
-      <ul className="categoryList">
-        <li><a href="/categories/udacity">Udacity</a></li>
-        <li><a href="/categories/react">React</a></li>
-        <li><a href="/categories/redux">Redux</a></li>
-      </ul>
-    </section>
+    <ul className="category-list">
+      <li className="category-list__item">
+        <Link className="category-link--white" to="/">all</Link>
+      </li>
+      {props.categories.map(category => {
+        return (
+        <li
+          className="category-list__item"
+          key={category.name}
+        >
+          <Link className="category-link--white" to={`/${category.name}`}>{category.name}</Link>
+        </li>
+      )
+      })}
+    </ul>
   )
 }
 

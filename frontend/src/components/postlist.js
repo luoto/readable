@@ -1,16 +1,25 @@
 import React from 'react';
-import PostLIstItem from './PostListItem';
+import PostListItem from './PostListItem';
 
 const PostList = (props) => {
   return (
-    <section>
-      <h2>Posts</h2>
-      <ul className="postList">
-        <PostLIstItem />
-        <PostLIstItem />
-        <PostLIstItem />
-      </ul>
-    </section>
+    <ul className="post-list">
+      {
+        props.posts.filter(post => !post.deleted).map((post) => {
+          return (
+            <PostListItem
+              key={post.id}
+              postId={post.id}
+              title={post.title}
+              author={post.author}
+              score={post.voteScore}
+              comments={post.commentCount}
+              category={post.category}
+            />
+          )
+        })
+      }
+    </ul>
   )
 }
 

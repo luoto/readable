@@ -2,12 +2,25 @@ import React from 'react';
 
 const PostFilter = (props) => {
   return (
-    <section>
-      <ul>
-        <li><button>votescore</button></li>
-        <li><button>timestamp</button></li>
+    <div>
+      <span className="sort-label">Sort by:</span>
+      <ul className='sort-filter'>
+        <li className="sort-filter__button">
+          <a
+            className="sort-filter__text--white"
+            onClick={() => props.onSelectFilter('votescore')}>
+            votescore
+          </a>
+        </li>
+        <li className="sort-filter__button">
+          <a
+            className="sort-filter__text--white"
+            onClick={() => props.onSelectFilter('timestamp')}>
+            timestamp
+          </a>
+        </li>
       </ul>
-    </section>
+    </div>
   )
 }
 

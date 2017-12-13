@@ -77,6 +77,7 @@ body {
 .stepper__button {
   padding-left: 5px;
   padding-right: 5px;
+  margin-bottom: -5px;
   cursor: pointer;
 }
 
@@ -132,6 +133,15 @@ body {
 }
 
 .post__action-item {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.post__action-button {
+  padding: 5px;
+  font-size: 0.7rem;
+  cursor: pointer;
 }
 
 .post__author {

@@ -1,6 +1,7 @@
 import React from 'react';
 import PostListItem from './PostListItem';
 
+
 const PostList = (props) => {
   return (
     <ul className="post-list">
@@ -15,6 +16,7 @@ const PostList = (props) => {
               score={post.voteScore}
               comments={post.commentCount}
               category={post.category}
+              onDelete={props.onDelete}
             />
           )
         })

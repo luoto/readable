@@ -12,10 +12,7 @@ class PostForm extends React.Component {
     if (post) {
       this.state = {
         post,
-        title: post.title,
-        body: post.body,
-        author: post.author,
-        category: post.category,
+        ...post,
         editing: true
       }
     } else {
@@ -30,8 +27,9 @@ class PostForm extends React.Component {
     }
   }
 
-  componentDidMount() {
-    if (this.props.editing){
+  componentWillMount() {
+
+    if (this.props.editing || this.state.editing) {
       const post = this.props.posts.filter((post) => post.id === this.props.location.state.id)[0]
       this.setState({...post, redirect: false});
     }
@@ -44,12 +42,12 @@ class PostForm extends React.Component {
     });
 
     const post = {
-        id: this.state.post ? this.state.post.id : shortid.generate(),
-        timestamp: this.state.post ? this.state.post.timestamp : Date.now(),
-        title: this.state.title,
-        body: this.state.body,
-        author: this.state.author,
-        category: this.state.category
+      id: this.state.post ? this.state.post.id : shortid.generate(),
+      timestamp: this.state.post ? this.state.post.timestamp : Date.now(),
+      title: this.state.title,
+      body: this.state.body,
+      author: this.state.author,
+      category: this.state.category
     }
 
     this.state.editing ? this.props.editPost(post) : this.props.createPost(post);

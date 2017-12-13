@@ -24,6 +24,7 @@ class RootView extends React.Component {
           posts={!category
             ? this.props.posts
             : this.props.posts.filter((post) => post.category === category)}
+          onDelete={this.props.deletePost}
         />
       </div>
     );

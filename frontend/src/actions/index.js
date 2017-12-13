@@ -1,3 +1,23 @@
+import {
+  TOGGLE_SORT_FILTER,
+  TOGGLE_CATEGORY_FILTER,
+  CATEGORIES_RECIEVED,
+  GET_POST,
+  POSTS_RECIEVED,
+  CREATE_POST,
+  DELETE_POST,
+  EDIT_POST,
+  UPVOTE_POST,
+  DOWNVOTE_POST,
+  GET_COMMENT,
+  COMMENTS_RECEIVED,
+  CREATE_COMMENT,
+  DELETE_COMMENT,
+  EDIT_COMMENT,
+  UPVOTE_COMMENT,
+  DOWNVOTE_COMMENT
+} from './actionTypes';
+
 // HELPERS
 function generateRequest(url, method, body = {}) {
   if (method === 'GET' || method === 'DELETE') {
@@ -17,7 +37,7 @@ function generateRequest(url, method, body = {}) {
 // FILTER ACTIONS
 export const selectSortFilter = (filter) => {
   return {
-    type: 'TOGGLE_SORT_FILTER',
+    type: TOGGLE_SORT_FILTER,
     filter
   };
 };
@@ -25,7 +45,7 @@ export const selectSortFilter = (filter) => {
 // CATEGORY ACTIONS
 export const selectCategory = (filter) => {
   return {
-    type: 'TOGGLE_CATEGORY_FILTER',
+    type: TOGGLE_CATEGORY_FILTER,
     filter
   };
 };
@@ -38,7 +58,7 @@ export const getCategories = () => {
     fetch(request)
       .then(response => response.json())
       .then((data) => {
-        dispatch({type: 'CATEGORIES_RECIEVED', categories: data.categories});
+        dispatch({type: CATEGORIES_RECIEVED, categories: data.categories});
       })
       .catch(error => console.log(error));
   }
@@ -55,7 +75,7 @@ export const getPost = (id) => {
       .then(response => response.json())
       .then((data) => {
         dispatch({
-          type: 'GET_POST',
+          type: GET_POST,
           post: data
         });
       })
@@ -71,7 +91,7 @@ export const getPosts = (category) => {
     fetch(request)
       .then(response => response.json())
       .then((data) => {
-        dispatch({type: 'POSTS_RECIEVED', posts: data});
+        dispatch({type: POSTS_RECIEVED, posts: data});
       })
       .catch(error => console.log(error));
   }
@@ -86,7 +106,7 @@ export const createPost = (post) => {
       .then(response => response.json())
       .then((data) => {
         dispatch({
-          type: 'CREATE_POST',
+          type: CREATE_POST,
           post: data
         });
       })
@@ -103,7 +123,7 @@ export const deletePost = (id) => {
       .then(response => response.json())
       .then((data) => {
         dispatch({
-          type: 'DELETE_POST',
+          type: DELETE_POST,
           post: data
         });
       })
@@ -120,7 +140,7 @@ export const editPost = (post) => {
       .then(response => response.json())
       .then((data) => {
         dispatch({
-          type: 'EDIT_POST',
+          type: EDIT_POST,
           post: data
         })
       })
@@ -138,7 +158,7 @@ export const votePost = (id, updown) => {
       .then(response => response.json())
       .then((data) => {
         dispatch({
-          type: updown === 'upVote' ? 'UPVOTE_POST' : 'DOWNVOTE_POST',
+          type: updown === 'upVote' ? UPVOTE_POST : DOWNVOTE_POST,
           post: data
         });
       })
@@ -155,7 +175,7 @@ export const getComment = (id) => {
     fetch(request)
       .then((response) => {
         dispatch({
-          type: 'GET_COMMENT',
+          type: GET_COMMENT,
           response
         });
       })
@@ -172,7 +192,7 @@ export const getComments = (postId) => {
       .then(response => response.json())
       .then((data) => {
         dispatch({
-          type: 'COMMENTS_RECEIVED',
+          type: COMMENTS_RECEIVED,
           comments: data
         });
       })
@@ -189,7 +209,7 @@ export const createComment = (comment) => {
       .then(response => response.json())
       .then((data) => {
         dispatch({
-          type: 'CREATE_COMMENT',
+          type: CREATE_COMMENT,
           comment: data
         })
       })
@@ -207,14 +227,14 @@ export const deleteComment = (id) => {
       .then(response => response.json())
       .then((data) => {
         dispatch({
-          type: 'DELETE_COMMENT',
+          type: DELETE_COMMENT,
           comment: data
         });
          // run another action so list updates
         getComments(data.parentId)(dispatch);
       })
 
-      .catch(error => console.log('DELETE_COMMENT', error));
+      .catch(error => console.log(DELETE_COMMENT, error));
   }
 };
 
@@ -227,7 +247,7 @@ export const editComment = (comment) => {
       .then(response => response.json())
       .then((data) => {
         dispatch({
-          type: 'EDIT_COMMENT',
+          type: EDIT_COMMENT,
           comment: data
         });
       })
@@ -245,7 +265,7 @@ export const voteComment = (id, updown) => {
       .then(response => response.json())
       .then((data) => {
         dispatch({
-          type: updown === 'upVote' ? 'UPVOTE_COMMENT' : 'DOWNVOTE_COMMENT',
+          type: updown === 'upVote' ? UPVOTE_COMMENT : DOWNVOTE_COMMENT,
           comment: data
         });
       })

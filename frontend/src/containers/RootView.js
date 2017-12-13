@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PostList from '../components/PostList';
 import PostFilter from '../components/PostFilter';
-import {
-  getPosts,
-  getCategories,
-  selectSortFilter
-} from '../actions';
+import * as actions from '../actions';
 
 class RootView extends React.Component {
   componentWillMount() {
@@ -22,7 +18,7 @@ class RootView extends React.Component {
         <Link className="button--circle" to='/posts/new'>
           <i className="material-icons button-icon">add</i>
         </Link>
-        <PostFilter onSelectFilter={this.props.sortBy} />
+        <PostFilter onSelectFilter={this.props.selectSortFilter} />
         <PostList
           comments={this.props.comments}
           posts={!category
@@ -49,20 +45,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    sortBy: (filter) => {
-      dispatch(selectSortFilter(filter));
-    },
-    getPosts: () => {
-      dispatch(getPosts());
-    },
-    getCategories: () => {
-      dispatch(getCategories());
-    }
-  }
-}
-
-const ConnectedRootView = connect(mapStateToProps, mapDispatchToProps)(RootView)
+const ConnectedRootView = connect(mapStateToProps, actions)(RootView)
 
 export default ConnectedRootView;

@@ -67,24 +67,5 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    deletePost: (id) => {
-      dispatch(deletePost(id));
-    },
-    deleteComment: (id) => {
-      dispatch(deleteComment(id));
-    },
-    editComment: (comment) => {
-      dispatch(editComment(comment));
-    },
-    getComments: (postId) => {
-      dispatch(getComments(postId));
-    },
-    getPost: (id) => {
-      dispatch(getPost(id))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
+export default connect(mapStateToProps,
+  { deleteComment, deletePost, getComments, editComment, getPost })(PostDetail);

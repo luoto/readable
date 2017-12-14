@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import VoteScoreStepper from '../containers/VoteScoreStepper';
 import CommentList from './CommentList';
+import NoMatch from './NoMatch';
 import { deleteComment, deletePost, getComments, editComment, getPost } from '../actions';
 
 class PostDetail extends React.Component {
@@ -17,16 +18,8 @@ class PostDetail extends React.Component {
   }
 
   render() {
-    if (this.props.error) {
-      return (<h1>post does not exist</h1>)
-    }
-
-    if (!this.props.post) {
-      return (<h1>Loading...</h1>)
-    }
-
-    if (this.props.post.deleted) {
-        return <Redirect to="/" />
+    if (this.props.error || !this.props.post) {
+      return <NoMatch />
     }
 
     return (

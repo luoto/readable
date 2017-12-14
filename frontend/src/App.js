@@ -25,12 +25,12 @@ class App extends Component {
             <div>
               <Header />
               <Switch>
-                <Route exact path="/category/:id" component={PostDetail} />
                 <Route exact path="/comments/new" component={CommentForm} />
                 <Route exact path="/comments/edit" component={CommentForm} />
                 <Route exact path="/posts/new" component={PostForm} />
                 <Route exact path="/posts/edit" component={PostForm} />
                 <Route exact path="/:category" component={RootView} />
+                <Route exact path="/:category/:id" component={PostDetail} />
                 <Route exact path="/" component={RootView} />
                 <Route component={NoMatch} />
               </Switch>

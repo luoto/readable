@@ -7,7 +7,7 @@ const PostListItem = (props) => {
     <li>
       <div className="post">
         <span className="post__label">{props.category}</span>
-        <Link to={{pathname: `/category/${props.postId}`}}>
+        <Link to={{pathname: `/${props.category}/${props.postId}`}}>
           <h3 className="post__title">{props.title}</h3>
         </Link>
         <p className="post__author">{props.author}</p>
